@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { API_URL } from '../../config';
+import { doc, updateDoc, arrayUnion, getDoc } from 'firebase/firestore';
+import { db } from '../../firebase/config';
 import CommentForm from '../CommentForm/CommentForm';
 import CommentList from '../CommentList/CommentList';
 import './ArticleCard.css';
@@ -32,6 +34,22 @@ const ArticleCard = ({ article }) => {
     };
     checkIfLiked();
   }, [currentUser, article.id]);
+
+  useEffect(() => {
+    const loadComments = async () => {
+      try {
+        const articleRef = doc(db, 'articles', article.id);
+        const articleDoc = await getDoc(articleRef);
+        if (articleDoc.exists()) {
+          const articleData = articleDoc.data();
+          setComments(articleData.comments || []);
+        }
+      } catch (error) {
+        console.error('Error loading comments:', error);
+      }
+    };
+    loadComments();
+  }, [article.id]);
 
   const handleLike = async () => {
     if (!currentUser) {
@@ -90,8 +108,24 @@ const ArticleCard = ({ article }) => {
     setShowMore(!showMore);
   };
 
-  const handleAddComment = (newComment) => {
-    setComments([...comments, newComment]);
+  const handleAddComment = async (newComment) => {
+    try {
+      const articleRef = doc(db, 'articles', article.id);
+      const commentWithId = {
+        ...newComment,
+        id: Date.now().toString(),
+        createdAt: new Date().toISOString()
+      };
+      
+      await updateDoc(articleRef, {
+        comments: arrayUnion(commentWithId)
+      });
+      
+      setComments(prevComments => [...prevComments, commentWithId]);
+    } catch (error) {
+      console.error('Error adding comment:', error);
+      alert('Помилка при додаванні коментаря');
+    }
   };
 
   // Формуємо текст для відображення: або базовий контент, або контент + додатковий

@@ -11,32 +11,45 @@
 .comment {
   background-color: #f8f9fa;
   border-radius: 8px;
-  padding: 10px;
+  padding: 15px;
   margin: 10px 0;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   animation: fadeIn 0.3s ease;
 }
 
 .comment p {
-  margin: 0 0 5px 0;
+  margin: 0 0 10px 0;
   color: #333;
+  line-height: 1.5;
 }
 
 .comment-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.8em;
+  font-size: 0.85em;
   color: #6c757d;
 }
 
 .comment-author {
-  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.user-name {
+  font-weight: 600;
+  color: #444;
+}
+
+.user-email {
   color: #666;
+  font-size: 0.9em;
 }
 
 .comment-date {
   font-style: italic;
+  color: #888;
 }
 
 @keyframes fadeIn {

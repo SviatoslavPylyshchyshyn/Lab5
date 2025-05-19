@@ -13,6 +13,8 @@ const CommentForm = ({ onAddComment }) => {
     const newComment = {
       text: comment,
       userEmail: currentUser.email,
+      userId: currentUser.uid,
+      userName: currentUser.displayName || currentUser.email.split('@')[0],
       date: new Date().toLocaleDateString('uk-UA', {
         year: 'numeric',
         month: 'long',

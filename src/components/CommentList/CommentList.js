@@ -12,7 +12,10 @@ const CommentList = ({ comments }) => {
         <div key={comment.id} className="comment">
           <p>{comment.text}</p>
           <div className="comment-meta">
-            <small className="comment-author">{comment.userEmail}</small>
+            <div className="comment-author">
+              <span className="user-name">{comment.userName}</span>
+              <span className="user-email">({comment.userEmail})</span>
+            </div>
             <small className="comment-date">{comment.date}</small>
           </div>
         </div>
