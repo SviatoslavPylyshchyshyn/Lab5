@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../firebase/config';
+import { useAuth } from '../../contexts/AuthContext';
 import PostForm from '../../components/PostForm/PostForm';
 import './CreatePost.css';
 
@@ -9,8 +10,20 @@ const CreatePost = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { currentUser } = useAuth();
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate('/');
+    }
+  }, [currentUser, navigate]);
 
   const handleSubmit = async (postData) => {
+    if (!currentUser) {
+      setError('Будь ласка, увійдіть в систему, щоб створити публікацію');
+      return;
+    }
+
     try {
       setLoading(true);
       setError(null);
@@ -24,7 +37,9 @@ const CreatePost = () => {
         date: currentDate,
         createdAt: currentDate,
         image: postData.imageData,
-        comments: []
+        comments: [],
+        authorId: currentUser.uid,
+        authorEmail: currentUser.email
       };
 
       console.log('Збереження статті в Firestore...');
@@ -49,6 +64,17 @@ const CreatePost = () => {
       setLoading(false);
     }
   };
+
+  if (!currentUser) {
+    return (
+      <div className="create-post-page">
+        <h1>Створити нову публікацію</h1>
+        <div className="error-message">
+          Будь ласка, увійдіть в систему, щоб створити публікацію
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="create-post-page">

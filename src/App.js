@@ -29,8 +29,12 @@ function AppContent() {
       <nav>
         <Link to="/" className="nav-link">Головна</Link>
         <Link to="/articles" className="nav-link">Статті</Link>
-        <Link to="/create-post" className="nav-link">Створити публікацію</Link>
-        <Link to="/my-posts" className="nav-link">Мої публікації</Link>
+        {currentUser && (
+          <>
+            <Link to="/create-post" className="nav-link">Створити публікацію</Link>
+            <Link to="/my-posts" className="nav-link">Мої публікації</Link>
+          </>
+        )}
         <Link to="/favorites" className="nav-link">Вподобані</Link>
         <Link to="/article-manager" className="nav-link">Управління статтями</Link>
       </nav>
