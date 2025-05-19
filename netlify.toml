@@ -3,6 +3,10 @@
   publish = "build"
   functions = "functions"
 
+[build.environment]
+  NODE_VERSION = "18.17.0"
+  NPM_VERSION = "9.6.7"
+
 [dev]
   command = "npm run start"
   port = 3000
@@ -17,3 +21,5 @@
   from = "/*"
   to = "/index.html"
   status = 200 
+
+  
