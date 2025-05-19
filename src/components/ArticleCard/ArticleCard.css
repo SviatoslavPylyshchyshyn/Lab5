@@ -1,0 +1,161 @@
+.article-card {
+  flex: 1 1 300px;
+  max-width: 400px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: rgba(255,255,255,0.85);
+  transition: all 0.3s ease;
+}
+
+.article-card.liked {
+  background-color: #f0f8ff;
+  transform: scale(1.02);
+}
+
+.article-card h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.article-card img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  display: block;
+  margin: 0 auto 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.article-card .content {
+  margin-bottom: 15px;
+}
+
+.article-card .content p {
+  line-height: 1.5;
+  color: #666;
+}
+
+.article-card .more {
+  display: inline;
+}
+
+.article-card .read-more {
+  background: none;
+  border: none;
+  color: #0066cc;
+  cursor: pointer;
+  padding: 5px 0;
+  font-size: 0.9em;
+}
+
+.article-card .read-more:hover {
+  text-decoration: underline;
+}
+
+.article-card .interactions {
+  margin-top: 15px;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+.article-card .like-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  transition: transform 0.3s ease, color 0.3s ease;
+  color: #333;
+  padding: 5px 10px;
+}
+
+.article-card .like-button:hover {
+  transform: scale(1.1);
+}
+
+.article-card .like-button.active {
+  color: #ff4444;
+}
+
+.article-card .comments {
+  margin-top: 15px;
+}
+
+.article-card .comment-input {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.article-card .add-comment {
+  background-color: #666;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.article-card .add-comment:hover {
+  background-color: #444;
+}
+
+.article-card .comment-list {
+  margin-top: 15px;
+}
+
+.article-card .comment {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 10px;
+  margin: 10px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  animation: fadeIn 0.3s ease;
+}
+
+.article-card .comment p {
+  margin: 0 0 5px 0;
+  color: #333;
+}
+
+.article-card .comment small {
+  color: #6c757d;
+  font-size: 0.8em;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.comments-section {
+  margin-top: 15px;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+.comments-section h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.date {
+  color: #6c757d;
+  font-size: 0.9em;
+  margin-bottom: 15px;
+  font-style: italic;
+} 

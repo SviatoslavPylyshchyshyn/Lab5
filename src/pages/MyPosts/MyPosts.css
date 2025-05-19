@@ -1,0 +1,62 @@
+.my-posts-page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.my-posts-page h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.post-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post-card h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.post-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.post-card .content {
+  color: #666;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.post-card .date {
+  color: #888;
+  font-size: 0.9em;
+}
+
+.no-posts {
+  text-align: center;
+  color: #666;
+  font-size: 1.2em;
+  margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+  .posts-grid {
+    grid-template-columns: 1fr;
+  }
+} 
