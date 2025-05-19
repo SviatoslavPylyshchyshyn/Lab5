@@ -6,6 +6,7 @@ import MyPosts from './pages/MyPosts/MyPosts';
 import Favorites from './pages/Favorites/Favorites';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
+import ArticleManager from './components/ArticleManager/ArticleManager';
 import { useAuth, AuthProvider } from './contexts/AuthContext';
 import { IMAGES } from './constants/images';
 import './App.css';
@@ -31,6 +32,7 @@ function AppContent() {
         <Link to="/create-post" className="nav-link">Створити публікацію</Link>
         <Link to="/my-posts" className="nav-link">Мої публікації</Link>
         <Link to="/favorites" className="nav-link">Вподобані</Link>
+        <Link to="/article-manager" className="nav-link">Управління статтями</Link>
       </nav>
 
       <main>
@@ -39,6 +41,7 @@ function AppContent() {
           <Route path="/create-post" element={<CreatePost />} />
           <Route path="/my-posts" element={<MyPosts />} />
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="/article-manager" element={<ArticleManager />} />
           <Route path="/" element={
             <div className="home-page">
               <section className="main-welcome-section">
