@@ -7,11 +7,10 @@ const Login = ({ onToggleForm, onClose }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, loginWithFacebook, resetPassword } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     try {
       setError('');
       setLoading(true);
@@ -19,6 +18,34 @@ const Login = ({ onToggleForm, onClose }) => {
       onClose();
     } catch (error) {
       setError('Помилка входу: ' + error.message);
+    }
+    setLoading(false);
+  };
+
+  const handleFacebookLogin = async () => {
+    try {
+      setError('');
+      setLoading(true);
+      await loginWithFacebook();
+      onClose();
+    } catch (error) {
+      setError('Помилка входу через Facebook: ' + error.message);
+    }
+    setLoading(false);
+  };
+
+  const handleForgotPassword = async () => {
+    if (!email) {
+      setError('Будь ласка, введіть вашу електронну пошту');
+      return;
+    }
+    try {
+      setError('');
+      setLoading(true);
+      await resetPassword(email);
+      alert('Лист для скидання пароля надіслано на вашу пошту');
+    } catch (error) {
+      setError('Помилка при скиданні пароля: ' + error.message);
     }
     setLoading(false);
   };
@@ -31,42 +58,39 @@ const Login = ({ onToggleForm, onClose }) => {
 
   return (
     <div className="auth-container" onClick={handleContainerClick}>
-      <form onSubmit={handleSubmit} className="auth-form">
-        <button type="button" className="close-button" onClick={onClose}>×</button>
+      <div className="auth-form">
         <h2>Вхід</h2>
         {error && <div className="error-message">{error}</div>}
-        <div className="form-group">
-          <label htmlFor="email">Електронна пошта</label>
+        <form onSubmit={handleSubmit}>
           <input
             type="email"
-            id="email"
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Пароль</label>
           <input
             type="password"
-            id="password"
+            placeholder="Пароль"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </div>
-        <div className="auth-links">
-          <p>
-            Ще не зареєстровані?{' '}
-            <span className="auth-link" onClick={onToggleForm}>
-              Реєстрація
-            </span>
-          </p>
-        </div>
-        <button type="submit" className="cta-button" disabled={loading}>
-          {loading ? 'Завантаження...' : 'Увійти'}
+          <button type="submit" disabled={loading}>
+            {loading ? 'Завантаження...' : 'Увійти'}
+          </button>
+        </form>
+        <button onClick={handleFacebookLogin} disabled={loading}>
+          Увійти через Facebook
         </button>
-      </form>
+        <button onClick={handleForgotPassword} disabled={loading}>
+          Забули пароль?
+        </button>
+        <p>
+          Немає облікового запису?{' '}
+          <button onClick={onToggleForm}>Зареєструватися</button>
+        </p>
+      </div>
     </div>
   );
 };
