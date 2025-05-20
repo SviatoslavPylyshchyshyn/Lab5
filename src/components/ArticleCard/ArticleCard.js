@@ -38,12 +38,12 @@ const ArticleCard = ({ article }) => {
   useEffect(() => {
     const loadComments = async () => {
       try {
-        const articleRef = doc(db, 'articles', article.id);
-        const articleDoc = await getDoc(articleRef);
-        if (articleDoc.exists()) {
-          const articleData = articleDoc.data();
-          setComments(articleData.comments || []);
+        const response = await fetch(`${API_URL}/articles/${article.id}/comments`);
+        if (!response.ok) {
+          throw new Error('Помилка при завантаженні коментарів');
         }
+        const data = await response.json();
+        setComments(data);
       } catch (error) {
         console.error('Error loading comments:', error);
       }
