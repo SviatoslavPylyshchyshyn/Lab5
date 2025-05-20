@@ -110,18 +110,18 @@ const ArticleCard = ({ article }) => {
 
   const handleAddComment = async (newComment) => {
     try {
-      const articleRef = doc(db, 'articles', article.id);
-      const commentWithId = {
-        ...newComment,
-        id: Date.now().toString(),
-        createdAt: new Date().toISOString()
-      };
-      
-      await updateDoc(articleRef, {
-        comments: arrayUnion(commentWithId)
+      const response = await fetch(`${API_URL}/articles/${article.id}/comments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newComment)
       });
-      
-      setComments(prevComments => [...prevComments, commentWithId]);
+      if (!response.ok) {
+        throw new Error('Помилка при додаванні коментаря');
+      }
+      const data = await response.json();
+      setComments(prevComments => [...prevComments, data]);
     } catch (error) {
       console.error('Error adding comment:', error);
       alert('Помилка при додаванні коментаря');
