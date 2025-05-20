@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import ArticleCard from '../../components/ArticleCard/ArticleCard';
 import './Favorites.css';
+import { API_URL } from '../../config';
 
 const Favorites = () => {
   const [favoriteArticles, setFavoriteArticles] = useState([]);
@@ -17,7 +18,7 @@ const Favorites = () => {
       }
 
       try {
-        const response = await fetch(`http://localhost:5000/api/favorites/${currentUser.uid}`);
+        const response = await fetch(`${API_URL}/favorites/${currentUser.uid}`);
         if (!response.ok) {
           throw new Error('Помилка при завантаженні вподобаних статей');
         }
