@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import './Auth.css';
+
+const auth = getAuth();
 
 const Login = ({ onToggleForm, onClose }) => {
   const [email, setEmail] = useState('');
@@ -26,6 +29,22 @@ const Login = ({ onToggleForm, onClose }) => {
   const handleContainerClick = (e) => {
     if (e.target.className === 'auth-container') {
       onClose();
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    if (!email) {
+      alert('Будь ласка, введіть вашу електронну пошту для скидання паролю.');
+      return;
+    }
+    try {
+      setLoading(true);
+      await sendPasswordResetEmail(getAuth(), email);
+      alert('Лист для скидання паролю надіслано на вашу електронну пошту.');
+    } catch (error) {
+      alert('Помилка при скиданні паролю: ' + error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -60,6 +79,11 @@ const Login = ({ onToggleForm, onClose }) => {
             Ще не зареєстровані?{' '}
             <span className="auth-link" onClick={onToggleForm}>
               Реєстрація
+            </span>
+          </p>
+          <p>
+            <span className="auth-link" onClick={handleForgotPassword}>
+              Забули пароль?
             </span>
           </p>
         </div>
